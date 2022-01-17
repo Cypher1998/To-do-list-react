@@ -1,25 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
+import MyApp from './MyApp';
+import { TaskProvider } from './context/task/TaskContext';
+import { AlertProvider } from './context/alert/AlertContext';
 
-function App() {
+const App = () => {
+  // filter tasks
+  // const filterTasks = (text) => {
+  //   setFiltered(text);
+  //   if (text !== '') {
+  //     const newTasks = tasks.filter((task) => {
+  //       return Object.values(task)
+  //         .join(' ')
+  //         .toLowerCase()
+  //         .includes(text.toLowerCase());
+  //     });
+  //     setSearchResults(newTasks);
+  //   } else {
+  //     setSearchResults(tasks);
+  //   }
+  // };
+
+  // clear all tasks
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <TaskProvider>
+      <AlertProvider>
+        <div className="container">
+          <MyApp />
+        </div>
+      </AlertProvider>
+    </TaskProvider>
   );
-}
+};
 
 export default App;
