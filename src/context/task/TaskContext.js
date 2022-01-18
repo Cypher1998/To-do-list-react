@@ -9,7 +9,7 @@ export const TaskProvider = ({ children }) => {
 
   // update UI with LS
   useEffect(() => {
-    const storedTasks = getItem('tasks');
+    const storedTasks = localStorageItem();
     const getText = getItem('text');
     setShowPage(getText);
     if (storedTasks) {
@@ -19,7 +19,18 @@ export const TaskProvider = ({ children }) => {
     // eslint-disable-next-line
   }, []);
 
-  // get item from LS
+  // get array item from LS
+  let todos;
+  const localStorageItem = () => {
+    if (localStorage.getItem('todos') === null) {
+      todos = [];
+    } else {
+      todos = JSON.parse(localStorage.getItem('todos'));
+    }
+    return todos;
+  };
+
+  // get single item from LS
   const getItem = (item) => {
     return JSON.parse(localStorage.getItem(item));
   };
@@ -31,15 +42,17 @@ export const TaskProvider = ({ children }) => {
 
   // add task
   const addTask = (task) => {
+    console.log(task);
     const id = Math.floor(Math.random() * 1000) + 1;
     const newTask = { id, ...task };
 
     // get tasks from LS
-    const storedTasks = getItem('tasks');
+    const storedTasks = localStorageItem();
+
     storedTasks.push(newTask);
 
     // set Tasks back to LS
-    setItem('tasks', storedTasks);
+    setItem('todos', storedTasks);
 
     // update state
     setTasks(storedTasks);
@@ -62,11 +75,11 @@ export const TaskProvider = ({ children }) => {
   // delete task
   const deleteTask = (id) => {
     setTasks(tasks.filter((task) => task.id !== id));
-    const getTasks = getItem('tasks');
+    const getTasks = localStorageItem();
     getTasks.forEach((task, index) => {
       if (task.id === id) {
         getTasks.splice(index, 1);
-        setItem('tasks', getTasks);
+        setItem('todos', getTasks);
       }
     });
   };
@@ -78,6 +91,7 @@ export const TaskProvider = ({ children }) => {
     );
     if (confirmBox === true) {
       setTasks([]);
+      localStorage.removeItem('todos');
     }
   };
 
