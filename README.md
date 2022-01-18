@@ -18,4 +18,6 @@ You will also see any lint errors in the console.
 
 This is an application to save all your everyday tasks. Once completed you can successfully deleted them. Also, you tasks persist on reloads. Hence, you do need worry about browser refresh affecting your stored tasks...
 
+### Link to Application https://cypher-react-to-do-list.netlify.app/
+
 # Thanks...
