@@ -31,7 +31,7 @@ const AddTask = () => {
       return;
     }
 
-    addTask({ text: text }, e);
+    addTask({ text: text });
     setText('');
   };
 
